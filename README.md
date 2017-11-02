@@ -125,10 +125,10 @@ https://www.mediawiki.org/wiki/ORES
 and here:  
 https://ores.wikimedia.org
 
-Documentation for the ORES API can be found here:  
+Documentation for the ORES API used in this analysis can be found here:  
 https://ores.wikimedia.org/v3/#!/scoring/get_v3_scores_context
 
-The ORES API takes a handful of arguments, including project, model, and a string of revision IDs, separated by '|'. The model returns a JSON file with a rating and other information for each revision ID. The rating options, from best to worst, consist of the following:
+The ORES API takes a handful of arguments, including project, model, and a string of revision IDs, separated by '|'. The model returns a JSON file with a quality rating and other information for each revision ID. The quality rating options, from best to worst, consist of the following:
 
 * **FA:** Featured article
 * **GA:** Good article
@@ -189,7 +189,7 @@ However, note that exact reproducibility will be limited by the following two fa
 * PRB population data is copyrighted and therefore is not included within this repository. Thus, users that wish to reproduce this analysis must download the population data from PRB on their own. It is possible this dataset may have changed between the time of my analysis and subsequent analyses.
 * The ORES API returns results based on the present state of each given article. Thus, any changes to articles after my own implementation may result in changes to the final results.
 
-To mitigate the potential differences, I have included my `merged_df` dataframe in `population_and_article_quality_data.csv`. The analysis can be picked up from the point where this file is read/written, and all downstream analysis should match my own exactly.
+To mitigate the potential differences, I have included my `merged_df` dataframe in `population_and_article_quality_data.csv`. The analysis can be picked up from the point where this file is read/written (just prior to the Analysis section), and all downstream analysis should match my own exactly.
 
 Do note if you plan to attempt the analysis from this "checkpoint", you may need to run the first line of code in the notebook to import relevant modules.
 
@@ -197,11 +197,19 @@ Feel free to contact me (Rex Thompson) at rext@uw.edu if you have any questions 
 
 ## Reflection
 
-This was a good assignment, as it helped me sharpen my skillset in Python (Pandas in particular) and also helped me think about bias in Wikipedia data.
+This was a good assignment, as it helped me sharpen my skillset in Python (Pandas in particular) and also helped me think about bias in Wikipedia data. The following expands upon what I have learned, what surprised me, and a few ideas I would have liked to pursue had I had more time.
+
+### What I Learned
 
 I had the chance to take a software engineering class this past Spring (DATA 515), and while we used Pandas a little bit in that class, I had grown a bit rusty on some of the key features of the module, especially the `groupby` functionality. I also hadn't really used merge or join before. So it was good to exercise these components of the package again, and after a couple of weeks I can tell I've already shaken off the dust and surpassed my prior knowledge.
 
-I was a little surprised at the number of articles for each country: I expected there would be many more than shown. For example, there are only 1098 articles for the United States. Congress alone makes up 535 people, which is almost half of that total, and that's just those current in office! I would have expected quite a few more articles in general, including politicians going back several years, if not all time. Similarly, I was surprised that the proportion of high-quality articles for United States was not higher. Given that a large proportion of English Wikipedia editors are likely from the United States, I expected the quality proportion to be higher for the United States. But I suppose this means that more editors does not necessarily translate to more quality.
+### What Surprised Me
+
+I was a little surprised at the number of articles for each country: I expected there would be many more than shown. For example, there are only 1098 articles for the United States. Congress alone makes up 535 people, which is almost half of that total, and that's just those current in office! I would have expected quite a few more articles in general, including politicians going back several years, if not all time.
+
+Similarly, I was surprised that the proportion of high-quality articles for United States was not higher. Given that a large proportion of English Wikipedia editors are likely from the United States, I expected the quality proportion to be higher for the United States. But I suppose this means that more editors does not necessarily translate to more quality.
+
+### Future Work
 
 One aspect I would have liked to explore had I had more time would be to audit the page_data and ORES algorithms. Having just finished reading about algorithm audits, I would be very curious to try different approaches to performing an audit of these algotirhms (e.g. code audit). But unfortunately I did not have the time to perform such a task. Thus, I have no choice but to take the algorithms' output at their word, which may be a bit presumptuous. For example, I understand from talking with other classmates that some of the algorithms may have some flaws (e.g. Jonn F. Kennedy was listed under Ireland, rather than the United States?)
 
