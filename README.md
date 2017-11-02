@@ -9,11 +9,63 @@ For this assignment I investigate bias in English Wikipedia politician coverage 
 * **Total Coverage:** proportion of articles compared to the country's population
 * **High-Quality Coverage:** proportion of high-quality articles compared to the total number of articles for the country
 
-I report on the extremes of both of these metrics, i.e. countries with the highest and lowest proportions of each metric. The full analysis and results, as well as a short reflection on the task, can be found in the Jupyter Notebook ([link](hcds-a2-bias.ipynb)).
+I report on the extremes of both of these metrics, i.e. countries with the highest and lowest proportions of each metric, below. The full analysis and results, as well as a short reflection on the task, can be found in the Jupyter Notebook ([link](hcds-a2-bias.ipynb)).
 
-### Results
+### Results: Total Coverage
 
-TODO: Consider adding summary tables/plots here...?
+**Ten Highest-Ranked Countries**
+
+|Country  						| Population 	| Articles 	| Articles Per Person (%) 	|
+|-------------------------------|---------------|-----------|---------------------------|
+|Nauru							|10860			|53			|0.488029					|
+|Tuvalu							|11800			|55			|0.466102					|
+|San Marino						|33000			|82			|0.248485					|
+|Monaco							|38088			|40			|0.105020					|
+|Liechtenstein					|37570			|29			|0.077189					|
+|Marshall Islands				|55000			|37			|0.067273					|
+|Iceland						|330828			|206		|0.062268					|
+|Tonga							|103300			|63			|0.060987					|
+|Andorra						|78000			|34			|0.043590					|
+|Federated States of Micronesia	|103000			|38			|0.036893					|
+
+**Ten Lowest-Ranked Countries**
+
+|Country  				| Population 	| Articles 	| Articles Per Person (%) 	|
+|-----------------------|---------------|-----------|---------------------------|
+|India					|1314097616		|990		|0.000075					|
+|China					|1371920000		|1138		|0.000083					|
+|Indonesia				|255741973		|215		|0.000084					|
+|Uzbekistan				|31290791		|29			|0.000093					|
+|Ethiopia				|98148000		|105		|0.000107					|
+|Korea, North			|24983000		|39			|0.000156					|
+|Zambia					|15473900		|26			|0.000168					|
+|Thailand				|65121250		|112		|0.000172					|
+|Congo, Dem. Rep. of	|73340200		|142		|0.000194					|
+|Bangladesh				|160411000		|324		|0.000202					|
+
+
+### Results: High-Quality Coverage
+
+**Ten Highest-Ranked Countries**
+
+|Country  					| Population 	| Articles 	| High-Quality Proportion (%) 	|
+|---------------------------|---------------|-----------|-------------------------------|
+|Korea, North				|39				|9			|23.076923						|
+|Romania					|348			|45			|12.931034						|
+|Saudi Arabia				|119			|15			|12.605042						|
+|Central African Republic	|68				|8			|11.764706						|
+|Qatar						|51				|5			|9.803922						|
+|Guinea-Bissau				|21				|2			|9.523810						|
+|Vietnam					|191			|18			|9.424084						|
+|Bhutan						|33				|3			|9.090909						|
+|Ireland					|381			|31			|8.136483						|
+|United States				|1098			|86			|7.832423						|
+
+**Ten Lowest-Ranked Countries**
+
+There are 39 countries with zero high-quality articles:  
+Andorra, Antigua and Barbuda, Bahamas, Bahrain, Barbados, Belgium, Belize, Burundi, Cape Verde, Comoros, Djibouti, Dominica, Eritrea, Federated States of Micronesia, French Guiana, Guadeloupe, Guyana, Kazakhstan, Kiribati, Lesotho, Liechtenstein, Macedonia, Marshall Islands, Monaco, Mozambique, Nauru, Nepal, San Marino, Sao Tome and Principe, Seychelles, Solomon Islands, Suriname, Swaziland, Switzerland, Tajikistan, Tonga, Tunisia, Turkmenistan, and Zambia
+
 
 ### Reflection
 
@@ -29,7 +81,7 @@ Population data for 210 countries was made available by the Population Reference
 http://www.prb.org/Publications/Datasheets/2015/2015-world-population-data-sheet.aspx
 
 The actual data used in this analysis can be found here:  
-http://www.prb.org/DataFinder/Topic/Rankings.aspx?ind=14  
+http://www.prb.org/DataFinder/Topic/Rankings.aspx?ind=14  (see Excel icon at top right)
 
 The raw data includes six columns:
 
