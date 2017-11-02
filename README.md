@@ -203,6 +203,10 @@ This was a good assignment, as it helped me sharpen my skillset in Python (Panda
 
 I had the chance to take a software engineering class this past Spring (DATA 515), and while we used Pandas a little bit in that class, I had grown a bit rusty on some of the key features of the module, especially the `groupby` functionality. I also hadn't really used merge or join before. So it was good to exercise these components of the package again, and after a couple of weeks I can tell I've already shaken off the dust and surpassed my prior knowledge.
 
+I also continued to grow my understanding of reproducible research, through making this repository as clear as possible so others could pick up and run with it if they want to build upon my work.
+
+Finally, this exercise taught me to think about bias in data, and provided quantitative data that could be used to identify and possibly diagnose causes for bias in English Wikipedia article coverage. It was good to think about the data from this perspective.
+
 ### What Surprised Me
 
 I was a little surprised at the number of articles for each country: I expected there would be many more than shown. For example, there are only 1098 articles for the United States. Congress alone makes up 535 people, which is almost half of that total, and that's just those current in office! I would have expected quite a few more articles in general, including politicians going back several years, if not all time.
