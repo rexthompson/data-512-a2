@@ -9,13 +9,13 @@ For this assignment I investigate bias in English Wikipedia politician coverage 
 * **Total Coverage:** proportion of articles compared to the country's population
 * **High-Quality Coverage:** proportion of high-quality articles compared to the total number of articles for the country
 
-I report on the extremes of both of these metrics, i.e. countries with the highest and lowest proportions of each metric, below. The full analysis and results, as well as a short reflection on the task, can be found in the Jupyter Notebook ([link](hcds-a2-bias.ipynb)).
+I report on the extremes of both of these metrics (i.e. countries with the highest and lowest proportions of each metric) and provide a short reflection on this activity below. The full analysis and results can be found in the [Jupyter Notebook](hcds-a2-bias.ipynb).
 
 ### Results: Total Coverage
 
 **Ten Highest-Ranked Countries**
 
-|Country  						| Population 	| Articles 	| Articles Per Person (%) 	|
+|Country  						| Population 	| Articles 	| Articles Per 100 People 	|
 |-------------------------------|---------------|-----------|---------------------------|
 |Nauru							|10860			|53			|0.488029					|
 |Tuvalu							|11800			|55			|0.466102					|
@@ -30,7 +30,7 @@ I report on the extremes of both of these metrics, i.e. countries with the highe
 
 **Ten Lowest-Ranked Countries**
 
-|Country  				| Population 	| Articles 	| Articles Per Person (%) 	|
+|Country  				| Population 	| Articles 	| Articles Per 100 People 	|
 |-----------------------|---------------|-----------|---------------------------|
 |India					|1314097616		|990		|0.000075					|
 |China					|1371920000		|1138		|0.000083					|
@@ -48,18 +48,18 @@ I report on the extremes of both of these metrics, i.e. countries with the highe
 
 **Ten Highest-Ranked Countries**
 
-|Country  					| Population 	| Articles 	| High-Quality Proportion (%) 	|
-|---------------------------|---------------|-----------|-------------------------------|
-|Korea, North				|39				|9			|23.076923						|
-|Romania					|348			|45			|12.931034						|
-|Saudi Arabia				|119			|15			|12.605042						|
-|Central African Republic	|68				|8			|11.764706						|
-|Qatar						|51				|5			|9.803922						|
-|Guinea-Bissau				|21				|2			|9.523810						|
-|Vietnam					|191			|18			|9.424084						|
-|Bhutan						|33				|3			|9.090909						|
-|Ireland					|381			|31			|8.136483						|
-|United States				|1098			|86			|7.832423						|
+|Country  					| Articles 	| HQ Articles 	| High-Quality Proportion (%) 	|
+|---------------------------|-----------|---------------|-------------------------------|
+|Korea, North				|39			|9				|23.076923						|
+|Romania					|348		|45				|12.931034						|
+|Saudi Arabia				|119		|15				|12.605042						|
+|Central African Republic	|68			|8				|11.764706						|
+|Qatar						|51			|5				|9.803922						|
+|Guinea-Bissau				|21			|2				|9.523810						|
+|Vietnam					|191		|18				|9.424084						|
+|Bhutan						|33			|3				|9.090909						|
+|Ireland					|381		|31				|8.136483						|
+|United States				|1098		|86				|7.832423						|
 
 **Ten Lowest-Ranked Countries**
 
@@ -69,7 +69,7 @@ Andorra, Antigua and Barbuda, Bahamas, Bahrain, Barbados, Belgium, Belize, Burun
 
 ### Reflection
 
-TODO: Consider adding reflection here, if you don't want to bury it in the notebook. Might make more sense here.
+TODO: Write a few paragraphs, either in the README or in the notebook, reflecting on what you have learned, what you found, what (if anything) surprised you about your findings, and/or what theories you have about why any biases might exist (if you find they exist). You can also include any questions this assignment raised for you about bias, Wikipedia, or machine learning.
 
 ## Data Source and Licensing
 
@@ -133,6 +133,20 @@ Data notes:
 * Article quality is a string but may only consist of one of several different ratings.
 * Two rev_id's returned invalid results in ORES....list them here and mention how they were handled.
 * Talk about data merge and how some countries fell off the map...
+* The number of high-quality articles might be affected by the four that were not returned valid by ORES.
+
+## Directory Structure
+
+```
+data-512-a2/
+    |- data/
+        |- raw/
+            |- page_data.csv 				 // page data
+        |- population_and_article_quality_data.csv   	 // combined data table for analysis
+    |- hcds-a2-bias.ipynb 				 // source code (Jupyter Notebook) 
+    |- LICENSE 						 // standard MIT License
+    |- README.md
+ ```
 
 
 ## Reproducibility
