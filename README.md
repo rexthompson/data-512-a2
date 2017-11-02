@@ -9,7 +9,7 @@ For this assignment I investigate bias in English Wikipedia politician coverage 
 * **Total Coverage:** proportion of articles compared to the country's population
 * **High-Quality Coverage:** proportion of high-quality articles compared to the total number of articles for the country
 
-I report on the extremes of both of these metrics (i.e. countries with the highest and lowest proportions of each metric) and provide a short reflection on this activity below. The full analysis and results can be found in the [Jupyter Notebook](hcds-a2-bias.ipynb).
+I report on the extremes of both of these metrics (i.e. countries with the highest and lowest proportions of each metric) and provide a short reflection on this activity below. The full analysis and results can be found in the Jupyter Notebook in the main folder of this repository (i.e. [hcds-a2-bias.ipynb](hcds-a2-bias.ipynb)).
 
 ### Results: Total Coverage
 
@@ -28,7 +28,7 @@ I report on the extremes of both of these metrics (i.e. countries with the highe
 |Andorra						|78000			|34			|0.043590					|
 |Federated States of Micronesia	|103000			|38			|0.036893					|
 
-**Ten Lowest-Ranked Countries**
+**Ten Lowest-Ranked Countries** (ascending order)
 
 |Country  				| Population 	| Articles 	| Articles Per 100 People 	|
 |-----------------------|---------------|-----------|---------------------------|
@@ -71,7 +71,7 @@ Andorra, Antigua and Barbuda, Bahamas, Bahrain, Barbados, Belgium, Belize, Burun
 
 TODO: Write a few paragraphs, either in the README or in the notebook, reflecting on what you have learned, what you found, what (if anything) surprised you about your findings, and/or what theories you have about why any biases might exist (if you find they exist). You can also include any questions this assignment raised for you about bias, Wikipedia, or machine learning.
 
-## Data Source and Licensing
+## Data Sources and Licensing
 
 Data for this project was obtained from three different sources, as described below. License information for each source is also described below.
 
@@ -94,27 +94,60 @@ The raw data includes six columns:
 
 For this analysis I only use data from the columns bolded above (i.e. `Location` and `Data`).
 
-The population data is copyrighted by PRB and therefore is not included within this repository. See the [Reproducibility](#reproducibility) section below for specifics on how to retrieve this data if you wish to duplicate or expand upon the analysis in this repository.
+The population data is copyrighted by PRB and therefore is not included within this repository. See the [Reproducibility](#reproducibility) section below for specifics on how to retrieve this data if you wish to duplicate or expand upon this analysis.
 
 ### Page Data
 
-You'll find the wikipedia politician article dataset on Figshare here:  
+The wikipedia politician article dataset can be found on Figshare at the following link:  
 https://figshare.com/articles/Untitled_Item/5513449
+
+The link above includes the following documentation about the data:
+
+> This project contains data on most English-language Wikipedia articles within the category "Category:Politicians by nationality" and subcategories, along with the code used to generate that data. Both are released under the CC-BY-SA 4.0 license.
+> 
+> Data
+The data was extracted via the Wikimedia API using the associated code. It is formatted as a CSV and saved as page_data.csv in the "data" directory. Columns are:
+> 
+> 1. "country", containing the sanitised country name, extracted from the category name;
+> 2. "page", containing the unsanitised page title.
+> 3. "last_edit", containing the edit ID of the last edit to the page.
+> 
+> Country codes are inconsistent. Where possible, they have been modified to match the country names found in http://www.prb.org/DataFinder/Topic/Rankings.aspx?ind=14 - but the PRB dataset contains nations not found in Wikipedia, and vice versa.
+> 
+> The actual recursion only went 2 levels deep into the category tree: someone listed as an Antiguan politician, say, is included - someone exclusively listed as an Antiguan politician who was assassinated is not.
+
+When retrieved from the site above, the download consists of a zip file with the raw data and the code that was used to create it. I have saved the raw data alone (i.e. excluding the source code) to this GitHub repository, under `data/raw`.
+
+As mentioned in the documentation above, the data is released under the CC-BY-SA 4.0 license. 
 
 
 ### Page Ratings (Wikipedia ORES)
 
+Page ratings are retrieved using the Wikimedia ORES RestAPI.
 
+General information about the ORES system can be found here:  
+https://www.mediawiki.org/wiki/ORES  
+and here:  
+https://ores.wikimedia.org
 
-Alyssa [1:00 PM]  
-I am having trouble finding licensing or terms of use information for ORES. Can we assume it has the same licensing as Wikimedia pages? https://creativecommons.org/licenses/by-sa/3.0/
+Documentation for the ORES API can be found here:  
+https://ores.wikimedia.org/v3/#!/scoring/get_v3_scores_context
 
-ironholds [1:09 PM]  
-@Alyssa good assumption to work with! Personally I would make the argument that it shouldn’t have copyright at all - but CC-BY-SA is otherwise a solid way to go.
+The ORES API takes a handful of arguments, including project, model, and a string of revision IDs, separated by '|'. The model returns a JSON file with a rating and other information for each revision ID. The rating options, from best to worst, consist of the following:
 
-Also from Oliver: "I’d explicitly Cc-0 it"
+* **FA:** Featured article
+* **GA:** Good article
+* **B:** B-class article
+* **C:** C-class article
+* **Start:** Start-class article
+* **Stub:** Stub-class article
 
+For our second metric, we consider articles to be "high-quality" if they are rated as either "FA" or "GA".
 
+The ORES API does not explicitly list a license for use. The project is hosted by the Wikimedia Foundation, so we assume it falls under the same general license as Wikimedia content:
+
+Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)  
+https://creativecommons.org/licenses/by-sa/3.0/
 
 ## Output Data
 
@@ -124,16 +157,14 @@ The cleaned data table can be found in `population_and_article_quality_data.csv`
 |-----------------------|---------------------------|-----------|
 | **country**			| country name 				| string 	|
 | **population**		| country population		| integer	|
-| **article_name**		| article name (str)		| string	|
+| **article_name**		| article name 				| string	|
 | **revision_id**		| article revision ID 		| integer	|
 | **article_quality**	| article quality			| string	|
 
 Data notes:
 
-* Article quality is a string but may only consist of one of several different ratings.
-* Two rev_id's returned invalid results in ORES....list them here and mention how they were handled.
-* Talk about data merge and how some countries fell off the map...
-* The number of high-quality articles might be affected by the four that were not returned valid by ORES.
+* ORES returned invalid results for a handful of articles. These articles were included in the total article counts, but were excluded from the high-quality article count since the missing articles could not be ranked.
+* 23 countries from the Population data did not have any articles with a corresponding country name. These countries were removed from the analysis per the assignment instructions.
 
 ## Directory Structure
 
@@ -148,62 +179,23 @@ data-512-a2/
     |- README.md
  ```
 
-
 ## Reproducibility
 
 This work is intended to be fully reproducible. This means that any user should be able to run my code and produce the exact same result as presented here.
 
 To test this out, simply `git clone` this repository, and open and run `hcds-a2-bias.ipynb`. The results should be exactly reproduced.
 
-TODO: talk about PRB data and how it's not included in repo, but can be downloaded, or the code will pull it straight from the website.
+However, note that exact reproducibility will be limited by two factors:
 
------
+* PRB population data is copyrighted and therefore is not included within this repository. Thus, users that wish to reproduce this analysis must download the population data from PRB on their own. It is possible this dataset may have changed between the time of my analysis and your own.
+* The ORES API returns results based on the present state of each given article. Thus, any changes to articles since my implementation may result in changes to the final results.
 
-However, note that the code is configured to refer to local data files if they exist. This was done for two reasons:
+To mitigate the potential differences, I have included my `merged_df` dataframe in `population_and_article_quality_data.csv`. The analysis can be picked up from the point where this file is read/written, and all downstream analysis should match my own exactly.
 
-* to create checkpoints (with reproducibility in mind)
-* to prevent redundant API calls
+Do note if you plan to attempt the analysis from this "checkpoint", you may need to run the first line of code in the notebook to import relevant modules.
 
-To truly duplicate this analysis from scratch, delete all the data in `/data` and `/data/raw`, and then run the notebook. The data will be re-retrieved from Wikimedia, and new .csv files will be written. The final visualization is always regenerated regardless of whether new or existing source data is used.
+## License
 
-If differences are found in results between code run with a clean slate vs. otherwise, they should be able to be traced to differences in the source data itself, or in modules upon which the code was written. Hopefully the "data checkpoints" will help with troubleshooting if this is ever found to be the case.
+This work is released under MIT License, per the Data Sources and Licensing](#data_sources_and_licensing) section above.
 
-
-
-
-
-
-
-------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------
-
-## NOTES
-
-Alyssa [1:00 PM]  
-I am having trouble finding licensing or terms of use information for ORES. Can we assume it has the same licensing as Wikimedia pages? https://creativecommons.org/licenses/by-sa/3.0/
-
-ironholds [1:09 PM]  
-@Alyssa good assumption to work with! Personally I would make the argument that it shouldn’t have copyright at all - but CC-BY-SA is otherwise a solid way to go.
-
--------
-
-Libby Montague [8:31 PM]  
-I'm not able to find the licensing information for the ORES or the Population Reference Bureau data. It looks like above Alyssa asked about the ORES data and said that we could make an assumption about the license for the data. (1) Can we use the data is no license is provided? (2) Should we mention that no license was provided? (3) Am I missing the license of the Population Reference Bureau?
-
-ironholds [8:42 PM]  
-In sequence: (1) I’d explicitly Cc-0 it, (2) if you’d like! In fact you can ask the lead developer on Thursday! (3) it doesn’t in fact have one - the data is copyrighted and shouldn’t be incorporated into the repo. Do the instructions say it should be? :/. But either way I’d just note that it’s copyrighted by the PRB
-
---------
-
-Mike Browne [3:53 PM]  
-Regarding the visualization:  10 lowest-ranked countries in terms of number of GA and FA quality articles as a proportion of all articles.  I'm getting 39 countries with zero GA/FA quality articles.  How would you suggest ranking these 39 countries?  By total number of articles?  In other words choose the 10 countries which have the highest total number of articles.
-
-j-mo [3:55 PM]  
-I would make them all 'tied' for last place.
-
-[3:55]  
-ordering among them doesn't matter, if they all have the same value
-
+Feel free to contact me (Rex Thompson) at rext@uw.edu if you have any questions about this analysis.
