@@ -1,6 +1,6 @@
 # Investigating Bias in Wikipedia Article Counts by Country
 
-This project was performed for **Assignment 2: Bias in Data** in my Human-Centered Data Science course (DATA 512, University of Washington, Autumn 2017). The assignment description can be found here (as of November 2017): https://wiki.communitydata.cc/HCDS_(Fall_2017)/Assignments#A2:_Bias_in_data
+I created this project for **Assignment 2: Bias in Data** in my Human-Centered Data Science course (DATA 512, University of Washington, Autumn 2017). The assignment description can be found here (as of November 2017): https://wiki.communitydata.cc/HCDS_(Fall_2017)/Assignments#A2:_Bias_in_data
 
 ## Overview
 
@@ -9,7 +9,7 @@ For this assignment I investigate bias in English Wikipedia politician coverage 
 * **Total Coverage:** proportion of articles compared to the country's population
 * **High-Quality Coverage:** proportion of high-quality articles compared to the total number of articles for the country
 
-I report on the extremes of both of these metrics (i.e. countries with the highest and lowest proportions of each metric) and provide a short reflection on this activity below. The full analysis and results can be found in the Jupyter Notebook in the main folder of this repository (i.e. [hcds-a2-bias.ipynb](hcds-a2-bias.ipynb)).
+I report on the extremes of both of these metrics (i.e. countries with the highest and lowest proportions of each metric) below. I provide a short reflection on this activity at the end of this README. The full analysis and results can be found in the Jupyter Notebook in the main folder of this repository (i.e. [hcds-a2-bias.ipynb](hcds-a2-bias.ipynb)).
 
 ### Results: Total Coverage
 
@@ -63,13 +63,8 @@ I report on the extremes of both of these metrics (i.e. countries with the highe
 
 **Ten Lowest-Ranked Countries**
 
-There are 39 countries with zero high-quality articles:  
+The ten lowest-ranked countries all have zero high-quality articles. In fact, there are 39 such countries:  
 Andorra, Antigua and Barbuda, Bahamas, Bahrain, Barbados, Belgium, Belize, Burundi, Cape Verde, Comoros, Djibouti, Dominica, Eritrea, Federated States of Micronesia, French Guiana, Guadeloupe, Guyana, Kazakhstan, Kiribati, Lesotho, Liechtenstein, Macedonia, Marshall Islands, Monaco, Mozambique, Nauru, Nepal, San Marino, Sao Tome and Principe, Seychelles, Solomon Islands, Suriname, Swaziland, Switzerland, Tajikistan, Tonga, Tunisia, Turkmenistan, and Zambia
-
-
-### Reflection
-
-TODO: Write a few paragraphs, either in the README or in the notebook, reflecting on what you have learned, what you found, what (if anything) surprised you about your findings, and/or what theories you have about why any biases might exist (if you find they exist). You can also include any questions this assignment raised for you about bias, Wikipedia, or machine learning.
 
 ## Data Sources and Licensing
 
@@ -149,9 +144,13 @@ The ORES API does not explicitly list a license for use. The project is hosted b
 Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)  
 https://creativecommons.org/licenses/by-sa/3.0/
 
+### This Repository
+
+This work is released under MIT License.
+
 ## Output Data
 
-The cleaned data table can be found in `population_and_article_quality_data.csv` ([link](data/population_and_article_quality_data.csv)). It consists of country populations and article ratings by country monthly. The schema is as follows:
+The cleaned data table can be found in `population_and_article_quality_data.csv` ([link](data/population_and_article_quality_data.csv)). It consists of country populations and article ratings by country. The schema is as follows:
 
 | Column        		| Value 					| Type		|
 |-----------------------|---------------------------|-----------|
@@ -185,17 +184,25 @@ This work is intended to be fully reproducible. This means that any user should 
 
 To test this out, simply `git clone` this repository, and open and run `hcds-a2-bias.ipynb`. The results should be exactly reproduced.
 
-However, note that exact reproducibility will be limited by two factors:
+However, note that exact reproducibility will be limited by the following two factors, at least:
 
-* PRB population data is copyrighted and therefore is not included within this repository. Thus, users that wish to reproduce this analysis must download the population data from PRB on their own. It is possible this dataset may have changed between the time of my analysis and your own.
-* The ORES API returns results based on the present state of each given article. Thus, any changes to articles since my implementation may result in changes to the final results.
+* PRB population data is copyrighted and therefore is not included within this repository. Thus, users that wish to reproduce this analysis must download the population data from PRB on their own. It is possible this dataset may have changed between the time of my analysis and subsequent analyses.
+* The ORES API returns results based on the present state of each given article. Thus, any changes to articles after my own implementation may result in changes to the final results.
 
 To mitigate the potential differences, I have included my `merged_df` dataframe in `population_and_article_quality_data.csv`. The analysis can be picked up from the point where this file is read/written, and all downstream analysis should match my own exactly.
 
 Do note if you plan to attempt the analysis from this "checkpoint", you may need to run the first line of code in the notebook to import relevant modules.
 
-## License
-
-This work is released under MIT License, per the Data Sources and Licensing](#data_sources_and_licensing) section above.
-
 Feel free to contact me (Rex Thompson) at rext@uw.edu if you have any questions about this analysis.
+
+## Reflection
+
+This was a good assignment, as it helped me sharpen my skillset in Python (Pandas in particular) and also helped me think about bias in Wikipedia data.
+
+I had the chance to take a software engineering class this past Spring (DATA 515), and while we used Pandas a little bit in that class, I had grown a bit rusty on some of the key features of the module, especially the `groupby` functionality. I also hadn't really used merge or join before. So it was good to exercise these components of the package again, and after a couple of weeks I can tell I've already shaken off the dust and surpassed my prior knowledge.
+
+I was a little surprised at the number of articles for each country: I expected there would be many more than shown. For example, there are only 1098 articles for the United States. Congress alone makes up 535 people, which is almost half of that total, and that's just those current in office! I would have expected quite a few more articles in general, including politicians going back several years, if not all time. Similarly, I was surprised that the proportion of high-quality articles for United States was not higher. Given that a large proportion of English Wikipedia editors are likely from the United States, I expected the quality proportion to be higher for the United States. But I suppose this means that more editors does not necessarily translate to more quality.
+
+One aspect I would have liked to explore had I had more time would be to audit the page_data and ORES algorithms. Having just finished reading about algorithm audits, I would be very curious to try different approaches to performing an audit of these algotirhms (e.g. code audit). But unfortunately I did not have the time to perform such a task. Thus, I have no choice but to take the algorithms' output at their word, which may be a bit presumptuous. For example, I understand from talking with other classmates that some of the algorithms may have some flaws (e.g. Jonn F. Kennedy was listed under Ireland, rather than the United States?)
+
+On that note, with a little more time I also would have enjoyed exploring the data itself a little more. It would be interesting to bring in additional data sets for deeper analysis, such as categorizing countries by primary language to see if primarily English-speaking countries had the most or highest quality articles on English Wikipedia. This might indicate the proportion of articles written about an author's home country, rather than articles about other countries' politicians (e.g. did someone from the United States write all the articles about North Korea?). This, and other such questions, would be interesting for the sake of exploring bias in the data and potential ramifications.
